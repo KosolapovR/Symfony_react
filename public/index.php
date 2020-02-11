@@ -5,7 +5,8 @@ use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
 require dirname(__DIR__).'/config/bootstrap.php';
-
+$domain = ($_SERVER['HTTP_HOST'] != 'localhost') ? $_SERVER['HTTP_HOST'] : false;
+setcookie('cookiename', 'data', time()+60*60*24*365, '/', $domain, false);
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);
 
