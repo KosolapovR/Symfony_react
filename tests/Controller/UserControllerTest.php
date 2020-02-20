@@ -4,10 +4,7 @@
 namespace App\Tests\Controller;
 
 
-use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class UserControllerTest extends WebTestCase
 {
@@ -22,8 +19,9 @@ class UserControllerTest extends WebTestCase
         $clinet->request('GET', '/api/users/6');
         $response = $clinet->getResponse();
         $this->assertResponseStatusCodeSame(200);
-        $response_data = json_decode($response->getContent(), true);
-        $this->assertSame(1, $this->count($response_data));
+        $data = json_decode($response->getContent(), true);
+        $response_data = json_decode($data, true);
+        $this->assertSame(6, $response_data['id']);
     }
 
     public function testPostUserAction(){
@@ -53,7 +51,7 @@ class UserControllerTest extends WebTestCase
         $client->request('DELETE', '/api/users/1');
         $this->assertResponseStatusCodeSame(404);
 
-        $client->request('DELETE', '/api/users/14');
+        $client->request('DELETE', '/api/users/10');
         $this->assertResponseStatusCodeSame(200);
     }
 }

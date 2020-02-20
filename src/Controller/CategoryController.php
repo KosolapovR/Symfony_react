@@ -3,7 +3,7 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Entity\Category;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,59 +12,53 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use Symfony\Component\Serializer\SerializerInterface;
 
 
-class UserController extends AbstractFOSRestController
+class CategoryController extends AbstractFOSRestController
 {
 
     /**
-     * @Rest\Get("/api/users")
+     * @Rest\Get("/api/category")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getAllUsersAction()
+    public function getAllCategoryAction()
     {
-        $data = $this->getDoctrine()->getRepository(User::class)->findAll();
+        $data = $this->getDoctrine()->getRepository(Category::class)->findAll();
         $view = $this->view($data, 200);
 
         return $this->handleView($view);
     }
 
     /**
-     * @Rest\Get("/api/users/{id}")
+     * @Rest\Get("/api/category/{id}")
      * @param int $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getUserAction(int $id,  SerializerInterface $serializer)
+    public function getCategoryAction(int $id)
     {
-        $data = $this->getDoctrine()->getRepository(User::class)->find($id);
-        $json = $serializer->serialize($data, 'json');
-        $view = $this->view($json, 200);
+        $data = $this->getDoctrine()->getRepository(Category::class)->find($id);
+        $view = $this->view($data, 200);
 
         return $this->handleView($view);
     }
 
     /**
-     * @Rest\Post("/api/users")
+     * @Rest\Post("/api/category")
      * @param Request $request
      * @param Serializer $serializer
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function postUserAction(Request $request, SerializerInterface $serializer)
+    public function postCategoryAction(Request $request, SerializerInterface $serializer)
     {
 
         $em = $this->getDoctrine()->getManager();
 
-        $user = new User();
-        $user->setPassword($request->get('password'));
-        $user->setDateAt(new \DateTime('now'));
-        $user->setName($request->get('name'));
-        $user->setRole([$request->get('role')]);
-        $user->setEmail($request->get('email'));
-        $user->setDayOfBirth(new \DateTime($request->get('day_of_birth')));
+        $category = new Category();
+        $category->setName($request->get('name'));
 
         //$em->persist($user);
         //$em->flush();
 
-        $json = $serializer->serialize($user, 'json');
+        $json = $serializer->serialize($category, 'json');
 
         $view = $this->view($json, 201);
         return $this->handleView($view);
@@ -72,19 +66,19 @@ class UserController extends AbstractFOSRestController
 
     /**
      * @param int $id
-     * @Rest\Delete("/api/users/{id}")
+     * @Rest\Delete("/api/category/{id}")
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteUserAction(int $id)
+    public function deleteCategortAction(int $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $user = $em->getRepository(User::class)->find($id);
-        if (!$user) {
+        $category = $em->getRepository(Category::class)->find($id);
+        if (!$category) {
             $view = $this->view('User Not found', 404);
             return $this->handleView($view);
         } else {
-            $em->remove($user);
+            $em->remove($category);
             //$em->flush();
             $view = $this->view('ok', 200);
             return $this->handleView($view);
