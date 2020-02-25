@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Box, Paper, Typography, Button} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import {connect} from 'react-redux';
+import {getAllPosts} from '../../reducers/postReducer';
 
 const useStyles = makeStyles({
     root: {
@@ -12,9 +14,12 @@ const useStyles = makeStyles({
     }
 });
 
-const MainPage = () => {
+const MainPage = (props) => {
 
-    const  classes = useStyles();
+    useEffect(() => {props.getPosts()}, []);
+
+    console.log(props);
+    const classes = useStyles();
 
     return (
         <Box>
@@ -22,7 +27,7 @@ const MainPage = () => {
                 <Typography variant={'h5'}>
                     Записаться сейчас!
                 </Typography>
-                <Typography variant={'body'}>
+                <Typography variant={'body1'}>
                     Вы можете записаться на прием к интересующему Вас специалисту уже сейчас!
                 </Typography>
             </Paper>
@@ -34,4 +39,17 @@ const MainPage = () => {
     );
 };
 
-export default MainPage;
+const mapStateToProps = (state) => ({
+    state
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getPosts: () => {
+            dispatch(getAllPosts());
+        }
+    }
+}
+;
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
