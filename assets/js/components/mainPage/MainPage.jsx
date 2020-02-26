@@ -16,9 +16,9 @@ const useStyles = makeStyles({
 
 const MainPage = (props) => {
 
-    useEffect(() => {props.getPosts()}, []);
+    //useEffect(() => {props.getPosts()}, []);
 
-    console.log(props);
+    //console.log(props);
     const classes = useStyles();
 
     return (

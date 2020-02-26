@@ -6,6 +6,9 @@ import MainPage from "./mainPage/MainPage";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from '@material-ui/icons/Menu';
 import TopMenu from "./topMenu/TopMenu";
+import NewsPage from "./newsPage/NewsPage";
+import {Switch, Route} from 'react-router-dom';
+import CategoryPage from "./categoryPage/CategoryPage";
 
 const useStyles = makeStyles({
     root: {
@@ -49,7 +52,13 @@ function Template(props) {
                         </Grid>
                     </Hidden>
                     <Grid className={classes.content} item xs={12} md={6}>
-                        <MainPage/>
+                        <Switch>
+                            <Route path='/news'><NewsPage/></Route>
+                            <Route path='/category'><CategoryPage/></Route>
+                            <Route path='/main'><MainPage/></Route>
+                            <Route exact path='/'><MainPage/></Route>
+                        </Switch>
+
                     </Grid>
                     <Hidden smDown>
                         <Grid className={classes.r_bar} item md={2}>

@@ -1,8 +1,8 @@
-import {GET_ALL_POSTS, GET_POST} from "../constants";
+import {types} from "../constants";
 import axios from 'axios';
 
 const initialState = {
-    posts: []
+    items: []
 };
 
 const postReducer = (state, action) => {
@@ -10,15 +10,14 @@ const postReducer = (state, action) => {
         return initialState
     }
     switch (action.type) {
-        case GET_ALL_POSTS: {
+        case types.GET_ALL_POSTS: {
             let newState = {...state};
             action.payload.forEach((p) => {
-                newState.posts = [...newState.posts, {id: p.id, title: p.title, text: p.text, date: p.date_at}]
+                newState.items = [...newState.items, {id: p.id, title: p.title, text: p.text, date: p.date_at}]
             });
-            console.log(newState);
             return newState
         }
-        case GET_POST: {
+        case types.GET_POST: {
             return {...state}
         }
         default:
@@ -29,11 +28,11 @@ const postReducer = (state, action) => {
 export default postReducer;
 
 const getAllPostsAC = (payload) => {
-    return {type: GET_ALL_POSTS, payload}
+    return {type: types.GET_ALL_POSTS, payload}
 };
 
 /*const getPostAC = (payload) => {
-    return {type: GET_POST, payload}
+    return {type: types.GET_POST, payload}
 };*/
 
 export const getAllPosts = () => {

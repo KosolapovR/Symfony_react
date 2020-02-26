@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +9,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import {Collapse} from "@material-ui/core";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,7 +31,7 @@ export default function MenuAppBar() {
     const [expand, setExpand] = React.useState(false);
 
     const handleMenu = () => {
-      setExpand(!expand);
+        setExpand(!expand);
     };
 
     const handleMenuProfile = event => {
@@ -45,11 +46,14 @@ export default function MenuAppBar() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton onClick={handleMenu} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                    <IconButton onClick={handleMenu} edge="start" className={classes.menuButton} color="inherit"
+                                aria-label="menu">
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        Новости
+                        <Link onClick={() => {
+                            if (expand) handleMenu()
+                        }} to='/news'>Новости</Link>
                     </Typography>
                     {auth && (
                         <div>
@@ -60,7 +64,7 @@ export default function MenuAppBar() {
                                 onClick={handleMenuProfile}
                                 color="inherit"
                             >
-                                <AccountCircle />
+                                <AccountCircle/>
                             </IconButton>
                             <Menu
                                 id="menu-appbar"
@@ -84,7 +88,7 @@ export default function MenuAppBar() {
                     )}
                 </Toolbar>
                 <Collapse in={expand} timeout={'auto'} unmountOnExit={true}>
-                    <Toolbar>Врачи</Toolbar>
+                    <Toolbar><Link to='/category'>Врачи</Link></Toolbar>
                     <Toolbar>О клинике</Toolbar>
                     <Toolbar>Контакты</Toolbar>
                 </Collapse>
