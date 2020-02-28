@@ -53,6 +53,7 @@ function Template(props) {
                     </Hidden>
                     <Grid className={classes.content} item xs={12} md={6}>
                         <Switch>
+                            <Route path='/news/:newsId'><NewsPage/></Route>
                             <Route path='/news'><NewsPage/></Route>
                             <Route path='/category'><CategoryPage/></Route>
                             <Route path='/main'><MainPage/></Route>

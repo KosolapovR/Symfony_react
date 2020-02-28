@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Box, Paper, Typography, Button} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import {connect} from 'react-redux';
-import {getAllPosts} from '../../reducers/postReducer';
 
 const useStyles = makeStyles({
     root: {

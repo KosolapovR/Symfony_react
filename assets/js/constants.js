@@ -1,11 +1,11 @@
-const GET_ALL_POSTS = 'GET_ALL_POSTS';
-const GET_POST = 'GET_POST';
+const GET_ALL_NEWS = 'GET_ALL_NEWS';
+const GET_NEWS = 'GET_NEWS';
 const GET_ALL_CATEGORY = 'GET_ALL_CATEGORY';
 const GET_CATEGORY = 'GET_CATEGORY';
 
 export const types = {
-    GET_ALL_POSTS,
-    GET_POST,
+    GET_ALL_NEWS,
+    GET_NEWS,
     GET_ALL_CATEGORY,
     GET_CATEGORY
 };

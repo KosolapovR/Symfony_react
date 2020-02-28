@@ -6,10 +6,10 @@ import Template from "./components/Template";
 import {Provider} from 'react-redux'
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk from "redux-thunk";
-import postReducer from "./reducers/postReducer";
+import newsReducer from "./reducers/NewsReducer";
 import categoryReducer from "./reducers/categoryReducer";
 
-const store = createStore(combineReducers({posts: postReducer, categories: categoryReducer}), applyMiddleware(thunk));
+const store = createStore(combineReducers({news: newsReducer, categories: categoryReducer}), applyMiddleware(thunk));
 ReactDOM.render(<Provider store={store}>
         < Router>
             < Template/>

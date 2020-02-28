@@ -5,19 +5,19 @@ const initialState = {
     items: []
 };
 
-const postReducer = (state, action) => {
+const newsReducer = (state, action) => {
     if (typeof state === 'undefined') {
         return initialState
     }
     switch (action.type) {
-        case types.GET_ALL_POSTS: {
+        case types.GET_ALL_NEWS: {
             let newState = {...state};
             action.payload.forEach((p) => {
                 newState.items = [...newState.items, {id: p.id, title: p.title, text: p.text, date: p.date_at}]
             });
             return newState
         }
-        case types.GET_POST: {
+        case types.GET_NEWS: {
             return {...state}
         }
         default:
@@ -25,21 +25,21 @@ const postReducer = (state, action) => {
     }
 };
 
-export default postReducer;
+export default newsReducer;
 
-const getAllPostsAC = (payload) => {
-    return {type: types.GET_ALL_POSTS, payload}
+const getAllNewsAC = (payload) => {
+    return {type: types.GET_ALL_NEWS, payload}
 };
 
-/*const getPostAC = (payload) => {
-    return {type: types.GET_POST, payload}
+/*const getNewsAC = (payload) => {
+    return {type: types.GET_NEWS, payload}
 };*/
 
-export const getAllPosts = () => {
+export const getAllNews = () => {
     return (dispatch) => {
         let response = axios.get('https://127.0.0.1:8000/api/post');
         response.then((response) => {
-            dispatch(getAllPostsAC(response.data));
+            dispatch(getAllNewsAC(response.data));
         })
     }
 };

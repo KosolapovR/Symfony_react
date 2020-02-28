@@ -88,7 +88,7 @@ export default function MenuAppBar() {
                     )}
                 </Toolbar>
                 <Collapse in={expand} timeout={'auto'} unmountOnExit={true}>
-                    <Toolbar><Link to='/category'>Врачи</Link></Toolbar>
+                    <Toolbar><Link to='/category' onClick={handleMenu}>Врачи</Link></Toolbar>
                     <Toolbar>О клинике</Toolbar>
                     <Toolbar>Контакты</Toolbar>
                 </Collapse>

@@ -11,13 +11,10 @@ const categoryReducer = (state, action) => {
     }
     switch (action.type) {
         case types.GET_ALL_CATEGORY: {
-            let categories = [];
             let newState = {...state};
             action.payload.forEach((c) => {
-                categories = [...categories, {id: c.id, name: c.name}]
+                newState.items = [...newState.items, {id: c.id, name: c.name}]
             });
-            newState.items = categories;
-            console.log(newState);
             return newState
         }
         case types.GET_CATEGORY: {
