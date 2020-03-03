@@ -23,7 +23,8 @@ class CategoryControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(200);
         $response_data = json_decode($response->getContent(), true);
         $this->assertSame(10, $response_data['id']);
-        $this->assertSame(1, count($response_data['doctors']));
+        $this->assertSame(1, count($response_data['users']));
+        $this->assertSame('phettinger', $response_data['users'][0]['name']);
     }
 
     public function testPostCategoryAction()

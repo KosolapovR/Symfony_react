@@ -37,6 +37,7 @@ class CategoryController extends AbstractFOSRestController
         $data = $this->getDoctrine()->getRepository(Category::class)->find($id);
         $view = $this->view($data, 200);
 
+
         return $this->handleView($view);
     }
 
