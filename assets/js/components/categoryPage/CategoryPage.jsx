@@ -10,6 +10,8 @@ function CategoryPage(props) {
             props.getCategory() : null
     }, []);
 
+    console.log(props.categories);
+
     let categories = props.categories.map((c) =>
         <ListItem key={c.id}>
             <ListItemText>

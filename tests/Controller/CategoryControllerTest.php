@@ -8,22 +8,26 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CategoryControllerTest extends WebTestCase
 {
-    public function testGetAllCategoryAction(){
+    public function testGetAllCategoryAction()
+    {
         $clinet = static::createClient();
         $clinet->request('GET', '/api/category');
         $this->assertResponseStatusCodeSame(200);
     }
 
-    public function testGetCategoryAction(){
+    public function testGetCategoryAction()
+    {
         $clinet = static::createClient();
         $clinet->request('GET', '/api/category/10');
         $response = $clinet->getResponse();
         $this->assertResponseStatusCodeSame(200);
         $response_data = json_decode($response->getContent(), true);
         $this->assertSame(10, $response_data['id']);
+        $this->assertSame(1, count($response_data['doctors']));
     }
 
-    public function testPostCategoryAction(){
+    public function testPostCategoryAction()
+    {
         $content = [
             'name' => 'Травматолог',
         ];
@@ -39,7 +43,8 @@ class CategoryControllerTest extends WebTestCase
         $this->assertEquals('Травматолог', $data['name']);
     }
 
-    public function testDeleteCategoryAction(){
+    public function testDeleteCategoryAction()
+    {
         $client = static::createClient();
 
         $client->request('DELETE', '/api/category/1');
