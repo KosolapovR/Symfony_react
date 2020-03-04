@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
-import {getOneNews} from "../../reducers/newsReducer";
+import {addComment, getOneNews} from "../../reducers/newsReducer";
 import {
     ListItemAvatar,
     ListItem,
@@ -10,12 +10,14 @@ import {
     CardHeader,
     CardContent,
     Card,
-    Typography, Box, CircularProgress
+    Typography, Box, CircularProgress, CardActions, Icon
 } from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import CommentDialog from "../common/CommentDialog";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -28,6 +30,12 @@ const useStyles = makeStyles(theme => ({
     },
     container: {
         height: '100%'
+    },
+    like_wrapper: {
+        padding: theme.spacing(2)
+    },
+    like_count: {
+        marginRight: theme.spacing(1)
     }
 }));
 
@@ -38,6 +46,10 @@ function OneNewsPage({match, location, history, ...props}) {
         props.getOneNews(match.params.newsId);
         console.log(props);
     }, []);
+
+    const onAddComment = () => {
+        alert(1);
+    };
 
     let comments;
     props.news.comments ?
@@ -70,8 +82,10 @@ function OneNewsPage({match, location, history, ...props}) {
         :
         null;
 
+
     if (props.isFetching) {
-        return <Grid className={classes.container} container justify="center" alignItems='center'><Grid item><CircularProgress/></Grid></Grid>;
+        return <Grid className={classes.container} container justify="center" alignItems='center'><Grid
+            item><CircularProgress/></Grid></Grid>;
     } else {
         return (
             <>
@@ -79,6 +93,19 @@ function OneNewsPage({match, location, history, ...props}) {
                     <CardHeader title={`Новость ${props.news.id}`}
                                 subheader={props.news.date}/>
                     <CardContent>{props.news.text}</CardContent>
+                    <Box className={classes.like_wrapper} display='flex' flexDirection='row-reverse'>
+                        <Icon color={'secondary'}>
+                            <FavoriteIcon/>
+                        </Icon>
+                        {props.news.like &&
+                        <Typography className={classes.like_count} variant={'body1'}
+                                    color={"secondary"}>{props.news.like.length}</Typography>
+                        }
+                        <Box flexGrow={1}><Icon color={'action'}>
+                            <CommentDialog addComment={props.addComment} userId={10} postId={props.news.id }/>
+                        </Icon></Box>
+                    </Box>
+
                 </Card>
                 <List className={classes.root}>
                     {comments}
@@ -95,4 +122,4 @@ const mapStateToProps = state => ({
 
 
 const WithRouterOneNewsPage = withRouter(OneNewsPage);
-export default connect(mapStateToProps, {getOneNews})(WithRouterOneNewsPage);
+export default connect(mapStateToProps, {getOneNews, addComment})(WithRouterOneNewsPage);

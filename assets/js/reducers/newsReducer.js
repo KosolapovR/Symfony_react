@@ -21,7 +21,12 @@ const newsReducer = (state, action) => {
             return newState
         }
         case types.GET_NEWS: {
-            let comments = action.payload.comments.map(c => ({id: c.id, text: c.text, date_at: c.date_at, user: c.user}));
+            let comments = action.payload.comments.map(c => ({
+                id: c.id,
+                text: c.text,
+                date_at: c.date_at,
+                user: c.user
+            }));
             return {
                 ...state,
                 oneNews: {
@@ -69,7 +74,7 @@ const getNewsAC = (payload) => {
 };
 
 const showLoaderAC = () => ({
-  type: types.SHOW_LOADER
+    type: types.SHOW_LOADER
 });
 
 const hideLoaderAC = () => ({
@@ -83,6 +88,18 @@ const showLoaderAllAC = () => ({
 const hideLoaderAllAC = () => ({
     type: types.HIDE_LOADER_ALL
 });
+
+export const addComment = (text, user_id, post_id) => {
+    return (dispatch) => {
+        let config = {
+            headers: {'Access-Control-Allow-Origin': '*'}
+        };
+        let response = axios.post('https://127.0.0.1:8000/api/comment', {text, user_id, post_id}, config);
+        response.then((data) => {
+            console.log(data);
+        });
+    }
+}
 
 export const getAllNews = () => {
     return (dispatch) => {
