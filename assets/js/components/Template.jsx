@@ -10,6 +10,7 @@ import NewsPage from "./newsPage/NewsPage";
 import {Switch, Route} from 'react-router-dom';
 import CategoryPage from "./categoryPage/CategoryPage";
 import OneNewsPage from "./oneNewsPage/OneNewsPage";
+import OneCategoryPage from "./oneCategoryPage/OneCategoryPage";
 
 const useStyles = makeStyles({
     root: {
@@ -56,6 +57,7 @@ function Template(props) {
                         <Switch>
                             <Route path='/news/:newsId'><OneNewsPage/></Route>
                             <Route path='/news'><NewsPage/></Route>
+                            <Route path='/category/:categoryId'><OneCategoryPage/></Route>
                             <Route path='/category'><CategoryPage/></Route>
                             <Route path='/main'><MainPage/></Route>
                             <Route exact path='/'><MainPage/></Route>

@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {getAllCategory} from "../../reducers/categoryReducer";
 import {connect} from "react-redux";
 import {ListItem, List, ListSubheader, ListItemText} from "@material-ui/core";
+import {Link} from "react-router-dom";
 
 function CategoryPage(props) {
 
@@ -10,12 +11,10 @@ function CategoryPage(props) {
             props.getCategory() : null
     }, []);
 
-    console.log(props.categories);
-
     let categories = props.categories.map((c) =>
         <ListItem key={c.id}>
             <ListItemText>
-                {c.name}
+                <Link to={`/category/${c.id}`}>{c.name}</Link>
             </ListItemText>
         </ListItem>);
 

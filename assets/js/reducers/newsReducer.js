@@ -4,7 +4,7 @@ import axios from 'axios';
 const initialState = {
     items: [],
     oneNews: {},
-    isFetching: true,
+    isFetching: false,
     isFetchingAll: false
 };
 
@@ -83,6 +83,7 @@ const showLoaderAllAC = () => ({
 const hideLoaderAllAC = () => ({
     type: types.HIDE_LOADER_ALL
 });
+
 export const getAllNews = () => {
     return (dispatch) => {
         dispatch(showLoaderAllAC());

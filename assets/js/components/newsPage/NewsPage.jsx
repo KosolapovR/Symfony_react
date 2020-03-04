@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {connect} from "react-redux";
-import {getAllNews} from "../../reducers/NewsReducer";
+import {getAllNews} from "../../reducers/newsReducer";
 import {Card, CardContent, CardHeader, CircularProgress} from "@material-ui/core";
 import {withRouter} from "react-router";
 import {Link} from "react-router-dom";
