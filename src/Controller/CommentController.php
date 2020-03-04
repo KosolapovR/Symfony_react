@@ -67,8 +67,8 @@ class CommentController extends AbstractFOSRestController
         $comment->setText($request->get('text'));
 
         $comment->setDateAt(new \DateTime('now'));
-        //$em->persist($user);
-        //$em->flush();
+        $em->persist($comment);
+        $em->flush();
 
         $json = $serializer->serialize($comment, 'json');
 
