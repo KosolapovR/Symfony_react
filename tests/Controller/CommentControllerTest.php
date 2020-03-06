@@ -9,15 +9,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class CommentControllerTest extends WebTestCase
 {
     public function testGetAllCommentAction(){
-        $clinet = static::createClient();
-        $clinet->request('GET', '/api/comment');
+        $client = static::createClient();
+        $client->request('GET', '/api/comment');
         $this->assertResponseStatusCodeSame(200);
     }
 
     public function testGetCommentAction(){
-        $clinet = static::createClient();
-        $clinet->request('GET', '/api/comment/10');
-        $response = $clinet->getResponse();
+        $client = static::createClient();
+        $client->request('GET', '/api/comment/10');
+        $response = $client->getResponse();
         $this->assertResponseStatusCodeSame(200);
         $response_data = json_decode($response->getContent(), true);
         $this->assertSame(10, $response_data['id']);
@@ -46,7 +46,7 @@ class CommentControllerTest extends WebTestCase
     public function testDeleteCommentAction(){
         $client = static::createClient();
 
-        $client->request('DELETE', '/api/comment/1');
+        $client->request('DELETE', '/api/comment/1111111');
         $this->assertResponseStatusCodeSame(404);
 
         $client->request('DELETE', '/api/comment/10');

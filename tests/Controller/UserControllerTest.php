@@ -9,15 +9,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class UserControllerTest extends WebTestCase
 {
     public function testGetAllUsersAction(){
-        $clinet = static::createClient();
-        $clinet->request('GET', '/api/users');
+        $client = static::createClient();
+        $client->request('GET', '/api/users');
         $this->assertResponseStatusCodeSame(200);
     }
 
     public function testGetUserAction(){
-        $clinet = static::createClient();
-        $clinet->request('GET', '/api/users/6');
-        $response = $clinet->getResponse();
+        $client = static::createClient();
+        $client->request('GET', '/api/users/6');
+        $response = $client->getResponse();
         $this->assertResponseStatusCodeSame(200);
         $data = json_decode($response->getContent(), true);
         $response_data = json_decode($data, true);
@@ -48,7 +48,7 @@ class UserControllerTest extends WebTestCase
     public function testDeleteUserAction(){
         $client = static::createClient();
 
-        $client->request('DELETE', '/api/users/1');
+        $client->request('DELETE', '/api/users/11111');
         $this->assertResponseStatusCodeSame(404);
 
         $client->request('DELETE', '/api/users/10');

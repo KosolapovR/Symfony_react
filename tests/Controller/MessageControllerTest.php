@@ -10,16 +10,16 @@ class MessageControllerTest extends WebTestCase
 {
     public function testGetAllMessageAction()
     {
-        $clinet = static::createClient();
-        $clinet->request('GET', '/api/message');
+        $client = static::createClient();
+        $client->request('GET', '/api/message');
         $this->assertResponseStatusCodeSame(200);
     }
 
     public function testGetMessageAction()
     {
-        $clinet = static::createClient();
-        $clinet->request('GET', '/api/message/10');
-        $response = $clinet->getResponse();
+        $client = static::createClient();
+        $client->request('GET', '/api/message/10');
+        $response = $client->getResponse();
         $this->assertResponseStatusCodeSame(200);
         $response_data = json_decode($response->getContent(), true);
         $this->assertSame(10, $response_data['id']);
@@ -46,7 +46,7 @@ class MessageControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $client->request('DELETE', '/api/message/1');
+        $client->request('DELETE', '/api/message/1111111');
         $this->assertResponseStatusCodeSame(404);
 
         $client->request('DELETE', '/api/message/10');
