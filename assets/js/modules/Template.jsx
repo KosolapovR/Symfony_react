@@ -1,16 +1,16 @@
 import React from 'react';
 import {Box, Container, Button, AppBar, Grid, Typography, Toolbar, Hidden, TableFooter} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import Footer from "./footer/Footer";
-import MainPage from "./mainPage/MainPage";
+import Footer from "../components/footer/Footer";
+import MainPage from "../components/mainPage/MainPage";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from '@material-ui/icons/Menu';
-import TopMenu from "./topMenu/TopMenu";
-import NewsPage from "./newsPage/NewsPage";
+import TopMenu from "../components/topMenu/TopMenu";
+import NewsPage from "../components/newsPage/NewsPage";
 import {Switch, Route} from 'react-router-dom';
-import CategoryPage from "./categoryPage/CategoryPage";
-import OneNewsPage from "./oneNewsPage/OneNewsPage";
-import OneCategoryPage from "./oneCategoryPage/OneCategoryPage";
+import CategoryPage from "../components/categoryPage/CategoryPage";
+import OneNewsPage from "../components/oneNewsPage/OneNewsPage";
+import OneCategoryPage from "../components/oneCategoryPage/OneCategoryPage";
 
 const useStyles = makeStyles({
     root: {
