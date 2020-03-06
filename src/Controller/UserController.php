@@ -57,7 +57,7 @@ class UserController extends AbstractFOSRestController
         $user->setPassword($request->get('password'));
         $user->setDateAt(new \DateTime('now'));
         $user->setName($request->get('name'));
-        $user->setRole([$request->get('role')]);
+        $user->setRoles([$request->get('role')]);
         $user->setEmail($request->get('email'));
         $user->setDayOfBirth(new \DateTime($request->get('day_of_birth')));
 

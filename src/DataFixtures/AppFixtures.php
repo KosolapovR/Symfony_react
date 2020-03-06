@@ -11,10 +11,21 @@ use App\Entity\Records;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Faker\Factory;
 
 class AppFixtures extends Fixture
 {
+    /**
+     * @var UserPasswordEncoderInterface
+     */
+    private $enoder;
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->enoder = $passwordEncoder;
+    }
+
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create();
@@ -35,9 +46,9 @@ class AppFixtures extends Fixture
             $user->setDateAt($faker->dateTimeThisYear);
             $user->setDayOfBirth($faker->dateTimeBetween('-60 years', '-18 years'));
             $user->setEmail($faker->email);
-            $user->setPassword($faker->password);
+            $user->setPassword($this->enoder->encodePassword($faker->password));
             $roles = ['ROLE_ADMIN', 'ROLE_DOCTOR'];
-            $user->setRole($faker->randomElements($roles));
+            $user->setRoles($faker->randomElements($roles));
             $user->setCategory($category);
 
             $records->setCategory($category);
