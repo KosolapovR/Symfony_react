@@ -54,4 +54,14 @@ class UserControllerTest extends WebTestCase
         $client->request('DELETE', '/api/users/10');
         $this->assertResponseStatusCodeSame(200);
     }
+
+    public function testRequireAuth(){
+        $client = static::createClient();
+
+        $client->request('GET', '/api/users/4');
+        $this->assertResponseStatusCodeSame(401);
+
+        $client->request('DELETE', '/api/users/4');
+        $this->assertResponseStatusCodeSame(401);
+    }
 }

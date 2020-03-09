@@ -34,6 +34,7 @@ class UserController extends AbstractFOSRestController
      */
     public function getUserAction(int $id,  SerializerInterface $serializer)
     {
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $data = $this->getDoctrine()->getRepository(User::class)->find($id);
         $json = $serializer->serialize($data, 'json');
         $view = $this->view($json, 200);
@@ -50,7 +51,7 @@ class UserController extends AbstractFOSRestController
      */
     public function postUserAction(Request $request, SerializerInterface $serializer)
     {
-
+        $this->denyAccessUnlessGranted('ROLE_USER');
         $em = $this->getDoctrine()->getManager();
 
         $user = new User();
@@ -77,6 +78,7 @@ class UserController extends AbstractFOSRestController
      */
     public function deleteUserAction(int $id)
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMINcd .');
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository(User::class)->find($id);
