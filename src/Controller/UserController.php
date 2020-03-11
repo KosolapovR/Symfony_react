@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -21,6 +22,7 @@ class UserController extends AbstractFOSRestController
      */
     public function getAllUsersAction()
     {
+
         $data = $this->getDoctrine()->getRepository(User::class)->findAll();
         $view = $this->view($data, 200);
 
@@ -34,7 +36,6 @@ class UserController extends AbstractFOSRestController
      */
     public function getUserAction(int $id,  SerializerInterface $serializer)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
         $data = $this->getDoctrine()->getRepository(User::class)->find($id);
         $json = $serializer->serialize($data, 'json');
         $view = $this->view($json, 200);
@@ -51,7 +52,7 @@ class UserController extends AbstractFOSRestController
      */
     public function postUserAction(Request $request, SerializerInterface $serializer)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER');
+
         $em = $this->getDoctrine()->getManager();
 
         $user = new User();
@@ -78,7 +79,7 @@ class UserController extends AbstractFOSRestController
      */
     public function deleteUserAction(int $id)
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMINcd .');
+
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository(User::class)->find($id);

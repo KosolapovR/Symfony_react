@@ -3,18 +3,50 @@
 
 namespace App\Tests\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserControllerTest extends WebTestCase
 {
-    public function testGetAllUsersAction(){
+    protected function createAuthenticatedClient($email = 'user', $password = 'password')
+    {
         $client = static::createClient();
-        $client->request('GET', '/api/users');
-        $this->assertResponseStatusCodeSame(200);
+        $client->request(
+            'POST',
+            '/api/login',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            '{"security" : {"credentials":{"email":"' . $email . '", "password": "' . $password . '"}}}'
+        );
+
+        $data = json_decode($client->getResponse()->getContent(), true);
+
+        if (isset($data['token'])) {
+            $client = static::createClient();
+            $client->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $data['token']));
+            return $client;
+        }
+        return null;
     }
 
-    public function testGetUserAction(){
+    public function testGetAllUsersAction()
+    {
+        $client = $this->createAuthenticatedClient('kosolapov-r@bk.ru', 'romul1991');
+        if (!$client) {
+            $client = static::createClient();
+        }
+        $client->request('GET',
+            '/api/users');
+        $response = $client->getResponse();
+        $this->assertResponseStatusCodeSame(200);
+        $data = json_decode($response->getContent(), true);
+        $response_data = json_decode($data, true);
+        $this->assertSame('kosolapov', $response_data[10]['name']
+        );
+    }
+
+    public function testGetUserAction()
+    {
         $client = static::createClient();
         $client->request('GET', '/api/users/6');
         $response = $client->getResponse();
@@ -24,7 +56,8 @@ class UserControllerTest extends WebTestCase
         $this->assertSame(6, $response_data['id']);
     }
 
-    public function testPostUserAction(){
+    public function testPostUserAction()
+    {
         $content = [
             'name' => 'Name',
             'email' => 'email@mail.ru',
@@ -45,7 +78,8 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals('125', $data['password']);
     }
 
-    public function testDeleteUserAction(){
+    public function testDeleteUserAction()
+    {
         $client = static::createClient();
 
         $client->request('DELETE', '/api/users/11111');
@@ -55,7 +89,8 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(200);
     }
 
-    public function testRequireAuth(){
+    public function testRequireAuth()
+    {
         $client = static::createClient();
 
         $client->request('GET', '/api/users/4');
