@@ -1,0 +1,15 @@
+const GET_ALL_ITEMS = 'news/GET_ALL_ITEMS';
+const GET_ITEM = 'news/GET_ITEM';
+const SHOW_LOADER = 'news/SHOW_LOADER';
+const HIDE_LOADER = 'news/HIDE_LOADER';
+const SHOW_LOADER_ALL = 'news/SHOW_LOADER_ALL';
+const HIDE_LOADER_ALL = 'news/HIDE_LOADER_ALL';
+
+export {
+    SHOW_LOADER_ALL,
+    HIDE_LOADER_ALL,
+    SHOW_LOADER,
+    HIDE_LOADER,
+    GET_ALL_ITEMS,
+    GET_ITEM
+}

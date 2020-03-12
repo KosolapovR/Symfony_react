@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import {getAllCategory} from "../../reducers/categoryReducer";
 import {connect} from "react-redux";
 import {ListItem, List, ListSubheader, ListItemText} from "@material-ui/core";
 import {Link} from "react-router-dom";
+import {getAllCategory} from "../../state/ducks/category/operations";
 
 function CategoryPage(props) {
 
@@ -31,7 +31,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
         return {
             getCategory: () => {
-                dispatch(getAllCategory());
+                dispatch(getAllCategory);
             }
         }
     }

@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
-import {getCategory} from "../../reducers/categoryReducer";
 import Grid from "@material-ui/core/Grid";
 import {CircularProgress, ListItem, Box, Divider, ListItemAvatar, Avatar} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
+import { getCategory} from "../../state/ducks/category/operations";
 
 const useStyles = makeStyles(theme => ({
     container: {

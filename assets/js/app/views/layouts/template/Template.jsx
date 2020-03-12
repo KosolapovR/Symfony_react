@@ -1,16 +1,14 @@
 import React from 'react';
 import {Box, Container, Button, AppBar, Grid, Typography, Toolbar, Hidden, TableFooter} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
-import Footer from "../components/footer/Footer";
-import MainPage from "../components/mainPage/MainPage";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from '@material-ui/icons/Menu';
-import TopMenu from "../components/topMenu/TopMenu";
-import NewsPage from "../components/newsPage/NewsPage";
 import {Switch, Route} from 'react-router-dom';
-import CategoryPage from "../components/categoryPage/CategoryPage";
-import OneNewsPage from "../components/oneNewsPage/OneNewsPage";
-import OneCategoryPage from "../components/oneCategoryPage/OneCategoryPage";
+import OneCategoryPage from "../../pages/OneCategoryPage";
+import NewsPage from "../../pages/NewsPage";
+import OneNewsPage from "../../pages/OneNewsPage";
+import CategoryPage from "../../pages/CategoryPage";
+import Home from "../../pages/Home";
+import Footer from "../footer/Footer";
+import TopMenu from "../topMenu/TopMenu";
 
 const useStyles = makeStyles({
     root: {
@@ -59,8 +57,8 @@ function Template(props) {
                             <Route path='/news'><NewsPage/></Route>
                             <Route path='/category/:categoryId'><OneCategoryPage/></Route>
                             <Route path='/category'><CategoryPage/></Route>
-                            <Route path='/main'><MainPage/></Route>
-                            <Route exact path='/'><MainPage/></Route>
+                            <Route path='/main'><Home/></Route>
+                            <Route exact path='/'><Home/></Route>
                         </Switch>
 
                     </Grid>

@@ -1,4 +1,4 @@
-import {types} from "../constants";
+import * as types from './types';
 import axios from 'axios';
 
 const initialState = {
@@ -8,19 +8,19 @@ const initialState = {
     isFetchingAll: false
 };
 
-const newsReducer = (state, action) => {
+const news = (state, action) => {
     if (typeof state === 'undefined') {
         return initialState
     }
     switch (action.type) {
-        case types.GET_ALL_NEWS: {
+        case types.GET_ALL_ITEMS: {
             let newState = {...state};
             action.payload.forEach((p) => {
                 newState.items = [...newState.items, {id: p.id, title: p.title, text: p.text, date: p.date_at}]
             });
             return newState
         }
-        case types.GET_NEWS: {
+        case types.GET_ITEM: {
             let comments = action.payload.comments.map(c => ({
                 id: c.id,
                 text: c.text,
@@ -63,31 +63,8 @@ const newsReducer = (state, action) => {
     }
 };
 
-export default newsReducer;
+export default news;
 
-const getAllNewsAC = (payload) => {
-    return {type: types.GET_ALL_NEWS, payload}
-};
-
-const getNewsAC = (payload) => {
-    return {type: types.GET_NEWS, payload}
-};
-
-const showLoaderAC = () => ({
-    type: types.SHOW_LOADER
-});
-
-const hideLoaderAC = () => ({
-    type: types.HIDE_LOADER
-});
-
-const showLoaderAllAC = () => ({
-    type: types.SHOW_LOADER_ALL
-});
-
-const hideLoaderAllAC = () => ({
-    type: types.HIDE_LOADER_ALL
-});
 
 export const addComment = (text, user_id, post_id) => {
     return (dispatch) => {
@@ -98,27 +75,5 @@ export const addComment = (text, user_id, post_id) => {
         response.then((data) => {
             console.log(data);
         });
-    }
-}
-
-export const getAllNews = () => {
-    return (dispatch) => {
-        dispatch(showLoaderAllAC());
-        let response = axios.get('https://127.0.0.1:8000/api/post');
-        response.then((response) => {
-            dispatch(getAllNewsAC(response.data));
-            dispatch(hideLoaderAllAC());
-        })
-    }
-};
-
-export const getOneNews = (id) => {
-    return (dispatch) => {
-        dispatch(showLoaderAC());
-        let response = axios.get(`https://127.0.0.1:8000/api/post/${id}`);
-        response.then((response) => {
-            dispatch(getNewsAC(response.data));
-            dispatch(hideLoaderAC());
-        })
     }
 };

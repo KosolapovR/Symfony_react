@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
-import {addComment, getOneNews} from "../../reducers/newsReducer";
+import {addComment, getOneNews} from "../../state/ducks/news/operations";
 import {
     ListItemAvatar,
     ListItem,
@@ -17,7 +17,8 @@ import Avatar from "@material-ui/core/Avatar";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import CommentDialog from "../common/CommentDialog";
+import CommentDialog from "../../../common/CommentDialog";
+
 
 const useStyles = makeStyles(theme => ({
     root: {
